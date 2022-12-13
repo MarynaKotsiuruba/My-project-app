@@ -1,0 +1,51 @@
+body {
+    font-family: "Roboto", sans-serif;
+    display: block;
+    margin: 0 auto;
+    padding: 30px;
+  }
+  h1 {
+    text-align: center;
+    text-decoration: underline;
+  }
+  .row {
+    padding: 20px;
+  }
+  .col-md-2 {
+    font-size: 15px;
+  }
+  .weather-today {
+    font-size: 40px;
+  }
+  .icon-principal {
+    font-size: 40px;
+    transition: 0.3s ease-in-out;
+  }
+  .icon-principal:hover {
+    cursor: pointer;
+  }
+  .additional-weather-today {
+    font-size: 20px;
+  }
+  
+  .icon {
+    font-size: 30px;
+    transition: 0.3s ease-in-out;
+  }
+  .fa-cloud {
+    color: #9f97e2;
+  }
+  .fa-sun {
+    color: #ffea4b;
+  }
+  .fa-wind {
+    color: #50514f;
+  }
+  .icon:hover {
+    font-size: 45px;
+    cursor: pointer;
+  }
+  #current-sky {
+    text-transform: capitalize;
+  }
+  
