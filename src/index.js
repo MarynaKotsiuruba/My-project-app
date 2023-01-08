@@ -37,6 +37,20 @@ let currentTime = `${day} ${time}`;
 
 let currentDate = document.querySelector("#current-date");
 currentDate.innerHTML = currentTime;
+function formatDay (timestamp){
+let date = new Date(timestamp * 1000);
+let day = date.getDay();
+let days = [
+  "Sun",
+  "Mon",
+  "Tue",
+  "Wed",
+  "Thu",
+  "Fri",
+  "Sat"
+];
+return days[day];
+}
 // temperature
 function showCelsius(event) {
   event.preventDefault();
@@ -100,18 +114,19 @@ axios.get(apiUrl).then(displayForecast);
 };
 
 function displayForecast(response) {
-  console.log(response.data.daily);
+let forecast = response.data.daily;
+console.log(response.data.daily);
 let forecastElement = document.querySelector("#forecast");
-let days = ["Sat", "Sun", "Mon", "Tue", "Wed"];
 let forecastHTML = `<div class="row five-day-weather">`;
-days.forEach(function (day) {
+forecast.forEach(function (forecastDay, index) {
+  if (index < 5){
 forecastHTML = forecastHTML + ` 
 <div class="col-md-2"> 
-<div class = "weather-forecast-date"> ${day} </div> 
-<i class="fa-solid fa-cloud icon" ></i> 
+<div class = "weather-forecast-date"> ${formatDay(forecastDay.time)} </div> 
+<img src=${forecastDay.condition.icon_url} alt="weather-icon">
 <div class="weather-forecast-temperatures"> 
-<span class="weather-forecast-temperature-max"> 8°C </span> / <span class="weather-forecast-min"> -1°C </span>  </div>
-</div>`;
+<span class="weather-forecast-temperature-max"> ${Math.round(forecastDay.temperature.maximum)}°C </span> / <span class="weather-forecast-min"> ${Math.round(forecastDay.temperature.minimum)}°C </span>  </div>
+</div>`;}
 
 });
 forecastHTML = forecastHTML + `</div>`;
