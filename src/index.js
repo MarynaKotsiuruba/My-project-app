@@ -73,6 +73,7 @@ function showTemperature(response) {
   let wind = response.data.wind.speed;
   let currentWind = document.querySelector("#current-wind");
   currentWind.innerHTML = wind;
+  getForecast(response.data.coordinates);
 }
 
 function showPosition(position) {
@@ -91,7 +92,15 @@ function getCurrentWeather(event) {
 let buttonWeather = document.querySelector("#current-weather-button");
 buttonWeather.addEventListener("click", getCurrentWeather);
  //Forecast
-function displayForecast() {
+function getForecast(coordinates){
+  let apiKey = "0f4d7cc3ao97fe2b524593t52a252fca";
+  let units = "metric";
+let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=${units}`;
+axios.get(apiUrl).then(displayForecast);
+};
+
+function displayForecast(response) {
+  console.log(response.data.daily);
 let forecastElement = document.querySelector("#forecast");
 let days = ["Sat", "Sun", "Mon", "Tue", "Wed"];
 let forecastHTML = `<div class="row five-day-weather">`;
@@ -131,4 +140,3 @@ function changeCity(event) {
 let formSearch = document.querySelector("#search-city");
 formSearch.addEventListener("submit", changeCity);
 searchCity("Kyiv");
-displayForecast();
