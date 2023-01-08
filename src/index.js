@@ -101,7 +101,6 @@ axios.get(apiUrl).then(displayForecast);
 
 function displayForecast(response) {
 let forecast = response.data.daily;
-console.log(response.data.daily);
 let forecastElement = document.querySelector("#forecast");
 let forecastHTML = `<div class="row five-day-weather">`;
 forecast.forEach(function (forecastDay, index) {
@@ -117,7 +116,6 @@ forecastHTML = forecastHTML + `
 });
 forecastHTML = forecastHTML + `</div>`;
 forecastElement.innerHTML = forecastHTML;
-console.log(forecastHTML);
 }
 
 
