@@ -1,26 +1,5 @@
 //Alert
-let weather = {
-  paris: {
-    temp: 19.7,
-    humidity: 80
-  },
-  tokyo: {
-    temp: 17.3,
-    humidity: 50
-  },
-  lisbon: {
-    temp: 30.2,
-    humidity: 20
-  },
-  "san francisco": {
-    temp: 20.9,
-    humidity: 100
-  },
-  oslo: {
-    temp: -5,
-    humidity: 20
-  }
-};
+//let weather = {paris: {temp: 19.7,humidity: 80},tokyo: {temp: 17.3,humidity: 50 },lisbon: {temp: 30.2,humidity: 20 },"san francisco": {temp: 20.9,humidity: 100},oslo: {temp: -5, humidity: 20}};
 
 //let city1 = prompt("Enter a city");
 //city1 = city1.toLowerCase();
@@ -75,16 +54,20 @@ let fahrenheitLink = document.querySelector("#fahrenheit");
 fahrenheitLink.addEventListener("click", showFahrenheit);
 //Current weather
 function showTemperature(response) {
-  let city = response.data.name;
+  let city = response.data.city;
   let currentCity = document.querySelector("#current-city");
   currentCity.innerHTML = city;
-  let temperature = Math.round(response.data.main.temp);
+  let temperature = Math.round(response.data.temperature.current);
   let currentTemperature = document.querySelector("#current-temperature");
   currentTemperature.innerHTML = temperature;
-  let sky = response.data.weather[0].description;
+  let sky = response.data.condition.description;
   let currentSky = document.querySelector("#current-sky");
   currentSky.innerHTML = sky;
-  let hum = response.data.main.humidity;
+  let icon = response.data.condition.icon;
+  let iconUrl = response.data.condition.icon_url;
+  let currentIcon = document.querySelector("#current-icon");
+  currentIcon.innerHTML = `<img src=${iconUrl} alt="weather-icon">`;
+  let hum = response.data.temperature.humidity;
   let currentHum = document.querySelector("#current-precipitation");
   currentHum.innerHTML = hum;
   let wind = response.data.wind.speed;
@@ -95,9 +78,9 @@ function showTemperature(response) {
 function showPosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
-  let apiKey = "4c9b53e4f8f5eb00df5915bdca340605";
+  let apiKey = "0f4d7cc3ao97fe2b524593t52a252fca";
   let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showTemperature);
 }
 function getCurrentWeather(event) {
@@ -130,9 +113,9 @@ console.log(forecastHTML);
 
 // search city and weather
 function searchCity(cityName) {
-  let apiKey = "4c9b53e4f8f5eb00df5915bdca340605";
+  let apiKey = "0f4d7cc3ao97fe2b524593t52a252fca";
   let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${units}&appid=${apiKey}`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${cityName}&key=${apiKey}&units=${units}`;
   axios.get(apiUrl).then(showTemperature);
 }
 
